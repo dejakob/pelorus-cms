@@ -16,6 +16,8 @@ angular.module('pelorus.controllers', ['pelorus.services']);
 //Define your app module. This is where it all starts.
 angular.module('pelorus', [
     'ui.router',
+    'ngResource',
+    'ngNotify',
 
     'district01.services.auth',
 
@@ -30,7 +32,13 @@ angular.module('pelorus', [
     '$log',
     'configuration',
     'RouteAuthenticationService',
-    function($rootScope, $log, configuration, RouteAuthenticationService) {
+    'Authentication',
+    'NotificationService',
+    function($rootScope, $log, configuration, RouteAuthenticationService, Authentication, NotificationService) {
+
+
+        // When starting the cms, always check for existing sessions first
+        Authentication.identify();
 
         // Check both app setup and user authentication on each state change
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {

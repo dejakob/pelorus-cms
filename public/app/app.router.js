@@ -59,9 +59,16 @@ angular.module('pelorus')
 
             .state('loggedin', {
                 url: '/logged-in',
-                data: {
+                access: {
+                    requiresLogin: true
                 },
-                template: 'logged in!'
+                controller: ['Authentication', '$log', function(Authentication, $log) {
+                    if (Authentication.Authenticated()) {
+                        $log.log('Authentication succeeded, should move on to home screen now');
+                    } else {
+                        $log.log('Authentication was not yet performed');
+                    }
+                }]
             })
 
             ;

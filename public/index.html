@@ -10,6 +10,7 @@
         <!-- Automatic injection of bower css files using gulp task "wiredep" -->
         <!-- bower:css -->
         <link rel="stylesheet" href="/app/bower_components/normalize-css/normalize.css" />
+        <link rel="stylesheet" href="/app/bower_components/ng-notify/src/styles/ng-notify.css" />
         <!-- endbower -->
 
         <!-- Automatic injection of relevant css files using gulp task "inject" -->
@@ -48,6 +49,8 @@
         <script src="app/bower_components/lodash/lodash.js"></script>
         <script src="app/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="app/bower_components/jquery/dist/jquery.js"></script>
+        <script src="app/bower_components/angular-resource/angular-resource.js"></script>
+        <script src="app/bower_components/ng-notify/src/scripts/ng-notify.js"></script>
         <!-- endbower -->
 
         <!-- Automatic injection of relevant js files using gulp task "inject" -->
@@ -61,9 +64,13 @@
 
         <script src="app/modules/auth/modules/authentication-controller.js"></script>
 
+        <script src="app/providers/configuration-provider.js"></script>
+
         <script src="app/services/route-authentication-service.js"></script>
 
-        <script src="app/providers/configuration-provider.js"></script>
+        <script src="app/services/notification-service.js"></script>
+
+        <script src="app/factories/user-factory.js"></script>
 
         <script src="app/core/app-controller.js"></script>
 

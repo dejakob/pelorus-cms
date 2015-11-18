@@ -18,8 +18,6 @@ angular.module('pelorus')
 
                 if (keyRegex.test(conf.clientAuthentication)) {
 
-                    console.log(conf);
-
                     // Merge user-suplied config with default config
                     angular.extend(configuration, conf);
 

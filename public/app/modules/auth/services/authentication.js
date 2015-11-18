@@ -4,7 +4,10 @@ angular.module('district01.services.auth')
         '$http',
         'configuration',
         '$window',
-        function ($http, configuration, $window) {
+        '$log',
+        'userFactory',
+        '$rootScope',
+        function ($http, configuration, $window, $log, userFactory, $rootScope) {
             var API = {};
 
             var _authenticated = false,
@@ -29,6 +32,27 @@ angular.module('district01.services.auth')
              */
             API.getCurrentLoginUser = function getCurrentLoginUser() {
                 return _userData;
+            };
+
+            API.identify = function identify () {
+                $log.log('Identification in progress');
+
+                userFactory.getProfile(function success (data) {
+                    $log.log('data', data);
+
+                    // Store user data in Authentication singleton
+                    // _userData = data.profile;
+                    /*  FIXME:
+                        Store user data
+                    */
+
+                    // Emit Authentication Event
+                    $rootScope.$emit('Authentication.authenticated');
+
+                }, function error (data) {
+                    _authenticated = false;
+                    $rootScope.$emit('Authentication.authenticationFailed');
+                });
             };
 
             /**
