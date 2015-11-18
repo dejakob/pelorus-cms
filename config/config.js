@@ -5,5 +5,5 @@ var _ = require('lodash'),
 
 module.exports = _.merge(
     require(__dirname + '/env/all.js'),
-    require(__dirname + '/env/' + mode.toLowerCase() + '.js') || {}
+    require(__dirname + '/env/' + mode.toLowerCase().trim() + '.js') || {}
 );
