@@ -15,7 +15,7 @@ module.exports = function(app) {
             failureRedirect: errorUrl
         }),
         function(req, res) {
-            loginController.authorize(req.user, 'twitter', function(update) {
+            loginController.authorize(req, req.user, 'twitter', function(update) {
                 //Redirect to appropriate URL's
                 if (update) {
                     res.redirect(successUrl);
@@ -35,7 +35,7 @@ module.exports = function(app) {
             failureRedirect: errorUrl
         }),
         function(req, res) {
-            loginController.authorize(req.user, 'google', function(update) {
+            loginController.authorize(req, req.user, 'google', function(update) {
                 //Redirect to appropriate URL's
                 if (update) {
                     res.redirect(successUrl);
