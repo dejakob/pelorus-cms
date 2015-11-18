@@ -34,11 +34,14 @@ angular.module('district01.services.auth')
                 return _userData;
             };
 
+            /**
+             * Get user based on session cookie. Stores user data in authentication singleton in call is successful, emits event if successful or unsuccessful
+             * @return {[type]} [description]
+             */
             API.identify = function identify () {
                 $log.log('Identification in progress');
 
                 userFactory.getProfile(function success (data) {
-                    $log.log('data', data);
 
                     // Store user data in Authentication singleton
                     _userData = data.profile;

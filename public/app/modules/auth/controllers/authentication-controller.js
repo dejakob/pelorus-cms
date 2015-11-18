@@ -6,6 +6,9 @@ angular.module('pelorus.controllers')
 
         function($scope, Authentication) {
 
+            /**
+             * Trigger oAuth module to start authenticating using the preferred provider (set in config.js)
+             */
             $scope.handleLogin = function handleLogin () {
                 Authentication.goToOauth();
             };
