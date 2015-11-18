@@ -3,7 +3,8 @@ angular.module('pelorus.services')
         '$log',
         'Authentication',
         '$state',
-        function RouteAuthenticationService($log, Authentication, $state) {
+        '$rootScope',
+        function RouteAuthenticationService($log, Authentication, $state, $rootScope) {
 
             var API = {};
 
@@ -16,19 +17,27 @@ angular.module('pelorus.services')
                 if (toState.access!== undefined) {
 
                     if (Authentication.Authenticated()) {
-                        $log.log('User is authenticated, check for permission for this route');
 
-                        //$state.go(toState, toParams);
+                        /*
+                            TODO: check user permission for this route
+                        */
+
                     } else {
 
-                        // The user now either was previously logged in, so we can recover his session, or he doesn't have a previous session in which case we need him to log in again.
-                        // call to service / profile, gets the profile, after the profile is retreived, continue navigation to route
+                        $rootScope.$on('Authentication.authenticated', function () {
 
-                        // Stop the normal propagation of the routing event
-                        event.preventDefault();
+                            /*
+                                TODO: check user permission for this route
+                            */
 
-                        $state.go('authentication');
-                        // Let's assume we still need to log in
+                        });
+
+                        $rootScope.$on('Authentication.authenticationFailed', function () {
+                            // Authentication failed, redirect to login screen
+                            event.preventDefault();
+                            $state.go('authentication');
+
+                        });
 
                     }
 

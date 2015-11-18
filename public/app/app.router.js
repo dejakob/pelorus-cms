@@ -58,15 +58,30 @@ angular.module('pelorus')
             })
 
             .state('loggedin', {
-                url: '/logged-in',
+                url: '/auth/callback-success',
                 access: {
                     requiresLogin: true
                 },
-                controller: ['Authentication', '$log', function(Authentication, $log) {
+                controller: ['Authentication', '$log', '$rootScope', '$state', function(Authentication, $log, $rootScope, $state) {
                     if (Authentication.Authenticated()) {
                         $log.log('Authentication succeeded, should move on to home screen now');
                     } else {
-                        $log.log('Authentication was not yet performed');
+
+                        $rootScope.$on('Authentication.authenticated', function () {
+                            // Authentication succeeded, redirect to default route
+
+                            /*
+                                TODO: redirect to the page the user was targetting before he needed to login.
+                            */
+
+                            $state.go('home');
+                        });
+
+                        $rootScope.$on('Authentication.authenticationFailed', function () {
+                            // Authentication failed, redirect to login form
+
+                            $state.go('authentication');
+                        });
                     }
                 }]
             })

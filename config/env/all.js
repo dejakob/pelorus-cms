@@ -6,8 +6,8 @@ module.exports = {
         version: '1.0.0/'
     },
     authentication: {
-        success: "logged-in",
-        error: "error"
+        success: '/auth/callback-success',
+        error: '/auth/callback-error'
     },
     twitter: {
         key: '8LnwI9S4vG59X2irzgkvD1IJD',

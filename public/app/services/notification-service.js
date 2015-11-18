@@ -9,11 +9,13 @@ angular.module('pelorus.services')
             var API = {};
 
             $rootScope.$on('Authentication.authenticated', function () {
-                ngNotify.set("Login successful", {
+
+                /*Notification removed since it would trigger each time visiting the cms with an active session*/
+                /*ngNotify.set("Login successful", {
                     position: 'top',
                     type: 'success',
                     html: true
-                });
+                });*/
             });
 
             return API;

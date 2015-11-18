@@ -41,10 +41,7 @@ angular.module('district01.services.auth')
                     $log.log('data', data);
 
                     // Store user data in Authentication singleton
-                    // _userData = data.profile;
-                    /*  FIXME:
-                        Store user data
-                    */
+                    _userData = data.profile;
 
                     // Emit Authentication Event
                     $rootScope.$emit('Authentication.authenticated');
