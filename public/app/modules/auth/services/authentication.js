@@ -45,6 +45,7 @@ angular.module('district01.services.auth')
 
                     // Store user data in Authentication singleton
                     _userData = data.profile;
+                    _authenticated = true;
 
                     // Emit Authentication Event
                     $rootScope.$emit('Authentication.authenticated');

@@ -3,8 +3,10 @@ angular.module('pelorus.controllers')
 
         '$scope',
         'Authentication',
+        '$state',
+        '$rootScope',
 
-        function($scope, Authentication) {
+        function($scope, Authentication, $state, $rootScope) {
 
             /**
              * Trigger oAuth module to start authenticating using the preferred provider (set in config.js)
@@ -12,6 +14,32 @@ angular.module('pelorus.controllers')
             $scope.handleLogin = function handleLogin () {
                 Authentication.goToOauth();
             };
+
+            /**
+             * Actions that need to be done when the controller starts
+             */
+            var initialize = function initialize () {
+                if (Authentication.Authenticated()) {
+
+                    // Already authenticated
+                    $state.go('home');
+
+                } else {
+
+                    $rootScope.$on('Authentication.authenticated', function () {
+
+                        // Authentication succeeded, redirect to default route
+
+                        /*
+                            TODO: redirect to the page the user was targetting before he needed to login.
+                        */
+
+                        $state.go('home');
+                    });
+                }
+            };
+
+            initialize();
 
         }
     ]);
