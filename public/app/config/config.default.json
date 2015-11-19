@@ -1,4 +1,8 @@
 {
+    "apiLevel": "1.0.0",
     "serverPath": "*server path goes here*",
-    "clientAuthentication": "* client authentication goes here *"
+    "clientAuthentication": "* client authentication goes here *",
+    "oAuth": {
+        "provider": "twitter"
+    }
 }
