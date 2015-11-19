@@ -35,10 +35,12 @@ angular.module('pelorus', [
     '$rootScope',
     '$log',
     'configuration',
+    'appModules',
     'RouteAuthenticationService',
     'Authentication',
-    function($rootScope, $log, configuration, RouteAuthenticationService, Authentication) {
+    function($rootScope, $log, configuration, appModules, RouteAuthenticationService, Authentication) {
 
+        $log.log('The app is configured to use these modules: ', appModules)
 
         // When starting the cms, always check for existing sessions first
         Authentication.identify();

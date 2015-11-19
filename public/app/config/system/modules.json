@@ -1,0 +1,26 @@
+{
+    "pelorus": [
+        {
+            "name": "home",
+            "machineName": "home",
+            "folder": "/home",
+            "icon": "dot-circle-o",
+            "type": "none"
+        },
+        {
+            "name": "pages",
+            "machineName": "pages",
+            "folder": "/pages",
+            "icon": "newspaper-o",
+            "type": "content"
+        },
+        {
+            "name": "content",
+            "machineName": "pages",
+            "folder": "/content",
+            "icon": "newspaper-o",
+            "type": "content"
+        }
+    ],
+    "user": []
+}
