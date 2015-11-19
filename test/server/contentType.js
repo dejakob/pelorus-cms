@@ -27,6 +27,7 @@ var api = supertest('http://localhost:' + config.port),
 describe('Content Type', function() {
 
     function getCookie(callback) {
+
         api.get('/api/1.0.0/user/dummy')
             .end(function(err, res) {
                 var cookie = res.headers['set-cookie'];
@@ -35,6 +36,7 @@ describe('Content Type', function() {
     }
 
     function getType(uuid, callback) {
+
         getCookie(function(cookie) {
             var url = endpoint + '/' + uuid;
             api.get(url)
