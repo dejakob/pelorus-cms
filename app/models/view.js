@@ -57,27 +57,7 @@ var ViewSchema = new Schema({
     versions: []
 }, {strict: false});
 
-ViewSchema.set('toJSON');
-
-ViewSchema.set('toObject');
-
 // Set the name of the collection
 ViewSchema.set('collection', 'views');
-
-if (!ViewSchema.options.toObject) {
-    ViewSchema.options.toObject = {};
-}
-
-ViewSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!ViewSchema.options.toJSON) {
-    ViewSchema.options.toJSON = {};
-}
-
-ViewSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
 
 module.exports = mongoose.model('View', ViewSchema);

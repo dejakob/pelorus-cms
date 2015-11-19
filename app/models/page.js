@@ -86,32 +86,8 @@ var PageSchema = new Schema({
     strict: false
 });
 
-PageSchema.set('toJSON');
-
-PageSchema.set('toObject');
-
 // Set the name of the collection
 PageSchema.set('collection', 'pages');
-
-if (!PageSchema.options.toObject) {
-    PageSchema.options.toObject = {};
-}
-
-// Register deepPopulate plugin
-PageSchema.plugin(deepPopulate, {});
-
-PageSchema.options.toObject.transform = function(doc, ret) {
-    delete ret.__v;
-};
-
-if (!PageSchema.options.toJSON) {
-    PageSchema.options.toJSON = {};
-}
-
-PageSchema.options.toJSON.transform = function(doc, ret) {
-    delete ret.__v;
-};
-
 
 PageSchema.pre('update', function(next) {
 

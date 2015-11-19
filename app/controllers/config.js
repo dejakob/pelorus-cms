@@ -1,7 +1,7 @@
 'use strict';
 
 require('rootpath')();
-var config = require('app/models/config'),
+var configModel = require('app/models/config'),
     versions = require('app/helpers/versions');
 
 /**
@@ -20,7 +20,7 @@ var config = require('app/models/config'),
  *     }
  */
 var readOne = function (req, res, next) {
-    config.findOne({type: req.params.type}, {versions: 0})
+    configModel.findOne({type: req.params.type}, {versions: 0})
         .populate('data.siteHome')
         .exec(function(err, item) {
             if(!err && item) {
@@ -52,8 +52,8 @@ exports.update = function (req, res, next) {
     // Compatibility fix for old MongoDB versions
     delete req.body._id;
     // Update version before save
-    versions.add(config, req.body, function(data) {
-        config.findOneAndUpdate({type: req.params.type}, data)
+    versions.add(configModel, req.body, function(data) {
+        configModel.findOneAndUpdate({type: req.params.type}, data)
             .then(
                 function onSuccess(oldObject) {
                     // Check if siteHome exists in the req object

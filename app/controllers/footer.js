@@ -36,7 +36,7 @@ exports.update = function (req, res, next) {
     // Compatibility fix for old MongoDB versions
     delete req.body._id;
     // Update version before save
-    versions.create(Footer, req.body, function(data) {
+    versions.add(footerModel, req.body, function(data) {
         footerModel.update({uuid: req.params.id}, data)
             .exec(function(err, update) {
                 if(!err && update) {

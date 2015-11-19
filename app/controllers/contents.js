@@ -365,7 +365,7 @@ exports.update = function (req, res, next) {
     // Compatibility fix for old MongoDB versions
     delete req.body._id;
     // Update version before save
-    versions.create(Content, req.body, function(data) {
+    versions.add(contentModel, req.body, function(data) {
         //data.meta.lastEditor = req.session.profile._id.toString();
         //data.meta.publishDate = setPublishDate(data.meta.published, data.meta.publishDate);
 

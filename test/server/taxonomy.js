@@ -58,7 +58,7 @@ describe('Taxonomy', function() {
 
 
     /**
-     * Get all role
+     * Get all taxonomy
      */
     describe('GET ' + endpoint, function() {
 
@@ -84,7 +84,7 @@ describe('Taxonomy', function() {
     });
 
     /**
-     * Get all role
+     * Get all taxonomy
      */
     describe('GET ' + endpoint + '/allTaxonomy', function() {
 
@@ -110,7 +110,7 @@ describe('Taxonomy', function() {
     });
 
     /**
-     * Get all role
+     * Get all tags from taxonomy
      */
     describe('GET ' + endpoint + '/allTags', function() {
 
@@ -136,7 +136,7 @@ describe('Taxonomy', function() {
     });
 
     /**
-     * Get all role
+     * Get taxonomy item
      */
     describe('GET ' + endpoint + '/:uuid', function() {
 
@@ -167,7 +167,7 @@ describe('Taxonomy', function() {
     });
 
     /**
-     * Get all role
+     * Create taxonomy item
      */
     describe('POST ' + endpoint, function() {
 
@@ -203,7 +203,7 @@ describe('Taxonomy', function() {
     });
 
     /**
-     * Get all role
+     * Update taxonomy item
      */
     describe('PUT ' + endpoint + '/:id', function() {
 
@@ -238,7 +238,7 @@ describe('Taxonomy', function() {
     });
 
     /**
-     * Get all role
+     * Delete taxonomy item
      */
     describe('DELETE ' + endpoint + '/:id', function() {
 

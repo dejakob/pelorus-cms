@@ -56,27 +56,7 @@ var FieldSchema = new Schema({
     }
 });
 
-FieldSchema.set('toJSON');
-
-FieldSchema.set('toObject');
-
 // Set the name of the collection
 FieldSchema.set('collection', 'fieldtypes');
-
-if (!FieldSchema.options.toObject) {
-    FieldSchema.options.toObject = {};
-}
-
-FieldSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!FieldSchema.options.toJSON) {
-    FieldSchema.options.toJSON = {};
-}
-
-FieldSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
 
 module.exports = mongoose.model('FieldType', FieldSchema);
