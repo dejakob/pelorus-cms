@@ -84,7 +84,7 @@ exports.update = function (req, res) {
     delete req.body._id;
 
     // Update version before save
-    versions.create(View, req.body, function(data) {
+    versions.add(viewModel, req.body, function(data) {
         //data.meta.lastEditor = req.session.profile._id.toString();
         //data.meta.publishDate = setPublishDate(data.meta.published, data.meta.publishDate);
         viewModel.update({uuid: req.params.id}, data)
