@@ -47,6 +47,9 @@ describe('Content Type', function() {
         });
     }
 
+    /**
+     * Get all content types
+     */
     describe('GET ' + endpoint, function() {
 
         var cookie;
@@ -71,6 +74,9 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Get all content types
+     */
     describe('GET ' + endpoint + '/all', function() {
 
         var cookie;
@@ -95,6 +101,9 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Get content type
+     */
     describe('GET ' + endpoint + '/:uuid', function() {
 
         var cookie;
@@ -124,6 +133,9 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Get content type with label
+     */
     describe('GET ' + endpoint + '/:safeLabel', function() {
 
         var cookie;
@@ -148,6 +160,9 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Create content type
+     */
     describe('POST ' + endpoint, function() {
 
         var cookie;
@@ -182,6 +197,9 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Update content type
+     */
     describe('PUT ' + endpoint + '/:uuid', function() {
 
         var cookie;
@@ -212,6 +230,9 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Delete content type
+     */
     describe('DELETE ' + endpoint + '/:uuid', function() {
 
         var cookie;
