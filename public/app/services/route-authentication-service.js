@@ -9,20 +9,14 @@ angular.module('pelorus.services')
             var API = {};
 
             /**
-             * Checks if a certain user has the correct rights to visit a certain route
+             * Checks if a certain route requires a user to be logged in
              */
             API.authorizeUserForRoute = function authorizeUserForRoute (event, toState, toParams, fromState, fromParams) {
 
                 // Only test route if is configured to require authorisation
                 if (toState.access!== undefined) {
 
-                    if (Authentication.Authenticated()) {
-
-                        /*
-                            TODO: check user permission for this route
-                        */
-
-                    } else {
+                    if (!Authentication.Authenticated()) {
 
                         $rootScope.$on('Authentication.authenticated', function () {
 
