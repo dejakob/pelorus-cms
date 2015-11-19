@@ -18,7 +18,8 @@ FIXTURES=(
     pages,
     views,
     menu,
-    roles
+    roles,
+    users
 )
 
 # Run the mongoImport command n-times

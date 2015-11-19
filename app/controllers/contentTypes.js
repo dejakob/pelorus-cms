@@ -6,7 +6,8 @@ var _ = require('lodash'),
     contentModel = require('app/models/content'),
     pageModel = require('app/models/page'),
     versions = require('app/helpers/versions'),
-    fields = require('app/helpers/fields');
+    fields = require('app/helpers/fields'),
+    roles = require('app/helpers/security/roles');
 
 /**
  * @api {get} /api/1.0.0/type Get all content types with populated fields
@@ -159,7 +160,8 @@ exports.create = function (req, res, next) {
     req.body.meta.safeLabel = _.snakeCase(req.body.meta.label);
     typeModel.create(req.body, function(err, create) {
         if(!err && create) {
-            //To do: add logic for roles
+            // To do: Add content type to roles
+            res.status(201).json(create);
         } else {
             res.status(400).json({err: err});
         }
@@ -196,7 +198,7 @@ exports.update = function (req, res, next) {
     req.body.meta.safeLabel = _.snakeCase(req.body.meta.label);
     // Update version before save
     fields.check(req.params.id, req.body, function() {
-        versions.create(Type, req.body, function(data) {
+        versions.add(typeModel, req.body, function(data) {
 
             // Clear content that will be automatically updated
             delete data.meta.lastModified;

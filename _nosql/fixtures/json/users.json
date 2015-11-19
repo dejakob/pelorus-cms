@@ -1,0 +1,17 @@
+[{
+    "_id": {
+        "$oid": "55b73aa72bf14ab82c54eb84"
+    },
+    "userId": "000000000000000000000000",
+    "avatarUrl": "http://i.imgur.com/3iLPbJh.png",
+    "name": "Dummy",
+    "lastLogin": "2015-11-04T10:34:00.416+01:00",
+    "enabled": true,
+    "roles": [
+        "55cb1eca1d5609399d6a87c1"
+    ],
+    "created": "2015-10-29T15:39:23.304+01:00",
+    "type": "dummy",
+    "uuid": "c346a174-9244-4756-8d67-7803c3097165",
+    "__v": 0
+}]

@@ -14,7 +14,7 @@ var UserSchema = new Schema({
     type: {
         type: String,
         required: true,
-        enum: ['twitter', 'google'],
+        enum: ['twitter', 'google', 'dummy'],
         default: 'twitter'
     },
     name: {

@@ -62,3 +62,22 @@ exports.logout = function(req, res, next) {
     }
     res.status(200).json({});
 };
+
+// Set dummy user - only in TEST ENV
+exports.dummy = function(req, res, next) {
+    userModel.findOne({
+            type: 'dummy',
+            userId: '000000000000000000000000'
+        })
+        .populate('roles')
+        .lean()
+        .exec(function(err, user) {
+            if (!err && user) {
+                req.session.profile = user;
+                res.status(200).json(user);
+            } else {
+                res.status(400).json();
+            }
+        });
+};
+
