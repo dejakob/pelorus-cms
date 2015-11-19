@@ -31,27 +31,7 @@ var ConfigSchema = new Schema({
     versions: [],
 }, {strict: false});
 
-ConfigSchema.set('toJSON', {});
-
-ConfigSchema.set('toObject', {});
-
 // Set the name of the collection
 ConfigSchema.set('collection', 'config');
-
-if (!ConfigSchema.options.toObject) {
-    ConfigSchema.options.toObject = {};
-}
-
-ConfigSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!ConfigSchema.options.toJSON) {
-    ConfigSchema.options.toJSON = {};
-}
-
-ConfigSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
 
 module.exports = mongoose.model('Config', ConfigSchema);

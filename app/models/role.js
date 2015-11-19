@@ -94,27 +94,7 @@ var RoleSchema = new Schema({
     }
 });
 
-RoleSchema.set('toJSON');
-
-RoleSchema.set('toObject');
-
 // Set the name of the collection
 RoleSchema.set('collection', 'roles');
-
-if (!RoleSchema.options.toObject) {
-    RoleSchema.options.toObject = {};
-}
-
-RoleSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!RoleSchema.options.toJSON) {
-    RoleSchema.options.toJSON = {};
-}
-
-RoleSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
 
 module.exports = mongoose.model('Role', RoleSchema);

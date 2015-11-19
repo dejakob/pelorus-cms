@@ -50,27 +50,7 @@ var MenuSchema = new Schema({
     }]
 });
 
-MenuSchema.set('toJSON');
-
-MenuSchema.set('toObject');
-
 // Set the name of the collection
 MenuSchema.set('collection', 'menu');
-
-if (!MenuSchema.options.toObject) {
-    MenuSchema.options.toObject = {};
-}
-
-MenuSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!MenuSchema.options.toJSON) {
-    MenuSchema.options.toJSON = {};
-}
-
-MenuSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
 
 module.exports = mongoose.model('Menu', MenuSchema);
