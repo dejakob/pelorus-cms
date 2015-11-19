@@ -1,26 +1,21 @@
 'use strict';
 
 require('rootpath')();
-var should = require('chai').should();
-var expect = require('chai').expect;
-var supertest = require('supertest');
-var request = require('request');
-var nock = require('nock');
-var path = require('path');
-var glob = require('glob');
-var _ = require('lodash');
-var models = glob('app/models/*.js', {
-    sync: true
-});
-var routes = glob('app/routes/**/*.js', {
-    sync: true
-});
+var should = require('chai').should(),
+    expect = require('chai').expect,
+    supertest = require('supertest'),
+    request = require('request'),
+    nock = require('nock'),
+    path = require('path'),
+    glob = require('glob'),
+    _ = require('lodash'),
+    mongoose = require('mongoose');
 
-// Environment
+// Set the NODE_ENV to test
 process.env.NODE_ENV = 'test';
 
 // Start the application
-var app = require('../../app.js');
+require('../../app.js');
 
 // Require config after setting environment
 var config = require('config/config');
@@ -29,26 +24,9 @@ var config = require('config/config');
 var api = supertest('http://localhost:' + config.port),
     endpoint = config.api.prefix + config.api.version + 'type';
 
-// Database
-var mongoose = require('mongoose');
-
-before(function(done) {
-    // Load models
-    _.forEach(models, function(model) {
-        require(path.resolve(model));
-    });
-    done();
-
-    // Load fixtures
-    /*    fixtures.load(path.join(__dirname, '../../app/fixtures'), function() {
-            done();
-        });*/
-});
-
 describe('Content Type', function() {
 
     function getCookie(callback) {
-
         api.get('/api/1.0.0/user/dummy')
             .end(function(err, res) {
                 var cookie = res.headers['set-cookie'];
@@ -57,7 +35,6 @@ describe('Content Type', function() {
     }
 
     function getType(uuid, callback) {
-
         getCookie(function(cookie) {
             var url = endpoint + '/' + uuid;
             api.get(url)
@@ -68,7 +45,7 @@ describe('Content Type', function() {
         });
     }
 
-    describe('GET /api/1.0.0/type', function() {
+    describe('GET ' + endpoint, function() {
 
         var cookie;
 
@@ -92,7 +69,7 @@ describe('Content Type', function() {
         });
     });
 
-    describe('GET /api/1.0.0/type/all', function() {
+    describe('GET ' + endpoint + '/all', function() {
 
         var cookie;
 
@@ -116,7 +93,7 @@ describe('Content Type', function() {
         });
     });
 
-    describe('GET /api/1.0.0/type/:uuid', function() {
+    describe('GET ' + endpoint + '/:uuid', function() {
 
         var cookie;
 
@@ -145,7 +122,7 @@ describe('Content Type', function() {
         });
     });
 
-    describe('GET /api/1.0.0/type/:safeLabel', function() {
+    describe('GET ' + endpoint + '/:safeLabel', function() {
 
         var cookie;
 
@@ -169,7 +146,7 @@ describe('Content Type', function() {
         });
     });
 
-    describe('POST /api/1.0.0/type', function() {
+    describe('POST ' + endpoint, function() {
 
         var cookie;
         var type;
@@ -203,7 +180,7 @@ describe('Content Type', function() {
         });
     });
 
-    describe('PUT /api/1.0.0/type/:id', function() {
+    describe('PUT ' + endpoint + '/:uuid', function() {
 
         var cookie;
         var type;
@@ -233,7 +210,7 @@ describe('Content Type', function() {
         });
     });
 
-    describe('DELETE /api/type', function() {
+    describe('DELETE ' + endpoint + '/:uuid', function() {
 
         var cookie;
         var type;
