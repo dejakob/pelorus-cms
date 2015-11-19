@@ -1,53 +1,5 @@
 [{
     "_id": {
-        "$oid": "55b73aa72bf14ab82c54eb81"
-    },
-    "name": "Fabian Meul",
-    "avatarUrl": "https://assets.antwerpen.be/srv/assets/api/image/6989d56a-6970-4f8b-b741-7ac04fb22ef5/nope.png",
-    "userId": "53739de3b0a8a783698b4592",
-    "lastLogin": "2015-08-01T11:00:00.000+01:00",
-    "enabled": true,
-    "roles": [
-        "55cb1eca1d5609399d6a87c1"
-    ],
-    "created": "2015-10-29T15:39:23.304+01:00",
-    "type": "twitter",
-    "uuid": "4f9cfea8-58af-4839-84c3-8e14cdb9c2b8",
-    "__v": 0
-}, {
-    "_id": {
-        "$oid": "55b73aa72bf14ab82c54eb82"
-    },
-    "name": "Thomas Bormans Acc",
-    "avatarUrl": "https://assets.antwerpen.be/srv/assets/api/image/40068dee-e223-4c15-85f7-d554634f6fd3/yoda.jpg",
-    "userId": "5465f11fb0a8a7e61a8b45b1",
-    "lastLogin": "2015-08-01T11:00:00.000+01:00",
-    "enabled": true,
-    "roles": [
-        "55cb1eca1d5609399d6a87c1"
-    ],
-    "created": "2015-10-29T15:39:23.304+01:00",
-    "type": "twitter",
-    "uuid": "3bf30375-025c-4e4c-8766-1509c6fcf7b9",
-    "__v": 0
-}, {
-    "_id": {
-        "$oid": "55b73aa72bf14ab82c54eb83"
-    },
-    "userId": "55b8f0edada8a7af478b45c5",
-    "avatarUrl": "http://i.imgur.com/3iLPbJh.png",
-    "name": "Thomas Bormans Prod",
-    "lastLogin": "2015-11-04T10:34:00.416+01:00",
-    "enabled": true,
-    "roles": [
-        "55cb1eca1d5609399d6a87c1"
-    ],
-    "created": "2015-10-29T15:39:23.304+01:00",
-    "type": "twitter",
-    "uuid": "c346a174-9244-4756-8d67-7803c3095165",
-    "__v": 0
-}, {
-    "_id": {
         "$oid": "55b73aa72bf14ab82c54eb84"
     },
     "userId": "000000000000000000000000",
