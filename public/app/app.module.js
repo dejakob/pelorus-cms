@@ -15,10 +15,14 @@ angular.module('pelorus.controllers', ['pelorus.services']);
 
 //Define your app module. This is where it all starts.
 angular.module('pelorus', [
+
+    // Third party modules
     'ui.router',
     'ngResource',
     'ngNotify',
+    'ncy-angular-breadcrumb',
 
+    // Own modules
     'district01.services.auth',
 
     'pelorus.filters',
@@ -33,8 +37,7 @@ angular.module('pelorus', [
     'configuration',
     'RouteAuthenticationService',
     'Authentication',
-    'NotificationService',
-    function($rootScope, $log, configuration, RouteAuthenticationService, Authentication, NotificationService) {
+    function($rootScope, $log, configuration, RouteAuthenticationService, Authentication) {
 
 
         // When starting the cms, always check for existing sessions first

@@ -34,7 +34,8 @@ angular.module('pelorus')
                 },
                 views: {
                     '': {
-                        template: 'Hello World'
+                        templateUrl: 'app/components/home/home.html',
+                        controller: 'HomeController'
                     }
                 }
             })
