@@ -22,9 +22,9 @@ var config = require('config/config');
 
 // API setup
 var api = supertest('http://localhost:' + config.port),
-    endpoint = config.api.prefix + config.api.version + 'type';
+    endpoint = config.api.prefix + config.api.version + 'taxonomy';
 
-describe('Content Type', function() {
+describe('Taxonomy', function() {
 
     function getCookie(callback) {
 
@@ -35,18 +35,31 @@ describe('Content Type', function() {
             });
     }
 
-    function getType(uuid, callback) {
-
+    function getTaxonomyTag(callback) {
         getCookie(function(cookie) {
-            var url = endpoint + '/' + uuid;
-            api.get(url)
+            api.get(endpoint)
                 .set('Cookie', cookie)
                 .end(function(err, res) {
-                    callback(res.body);
-                });
+                    callback(res.body[0]);
+                })
         });
     }
 
+    function getTaxonomyTagByUuid(uuid, callback) {
+        getCookie(function(cookie) {
+            api.get(endpoint + '/' + uuid)
+                .set('Cookie', cookie)
+                .end(function(err, res) {
+                    callback(res.body);
+                })
+        });
+
+    }
+
+
+    /**
+     * Get all role
+     */
     describe('GET ' + endpoint, function() {
 
         var cookie;
@@ -65,13 +78,15 @@ describe('Content Type', function() {
                 .expect(200)
                 .end(function(err, res) {
                     expect(res.body).to.be.an('array');
-                    expect(res.body).to.not.have.property('err');
                     done();
                 });
         });
     });
 
-    describe('GET ' + endpoint + '/all', function() {
+    /**
+     * Get all role
+     */
+    describe('GET ' + endpoint + '/allTaxonomy', function() {
 
         var cookie;
 
@@ -83,64 +98,67 @@ describe('Content Type', function() {
         });
 
         it('should return an array', function(done) {
-            api.get(endpoint + '/all')
+            api.get(endpoint + '/allTaxonomy')
                 .set('Cookie', cookie)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(200)
                 .end(function(err, res) {
                     expect(res.body).to.be.an('array');
-                    expect(res.body).to.not.have.property('err');
                     done();
                 });
         });
     });
 
+    /**
+     * Get all role
+     */
+    describe('GET ' + endpoint + '/allTags', function() {
+
+        var cookie;
+
+        before(function(done) {
+            getCookie(function(c) {
+                cookie = c;
+                done();
+            });
+        });
+
+        it('should return an array', function(done) {
+            api.get(endpoint + '/allTags')
+                .set('Cookie', cookie)
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(200)
+                .end(function(err, res) {
+                    expect(res.body).to.be.an('array');
+                    done();
+                });
+        });
+    });
+
+    /**
+     * Get all role
+     */
     describe('GET ' + endpoint + '/:uuid', function() {
 
         var cookie;
+        var tag;
 
         before(function(done) {
             getCookie(function(c) {
                 cookie = c;
-                done();
-            });
-        });
-
-        it('should return an object', function(done) {
-            api.get(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b3')
-                .set('Cookie', cookie)
-                .expect('Content-Type', 'application/json; charset=utf-8')
-                .expect(200)
-                .end(function(err, res) {
-                    expect(res.body).to.be.an('object');
-                    expect(res.body).to.not.have.property('err');
-                    expect(res.body).to.have.property('meta');
-                    expect(res.body.meta).to.have.property('safeLabel');
-                    expect(res.body.meta).to.have.property('label');
-                    expect(res.body).to.have.property('fields');
-                    expect(res.body.fields).to.be.an('array');
+                getTaxonomyTag(function(t) {
+                    tag = t;
                     done();
                 });
-        });
-    });
-
-    describe('GET ' + endpoint + '/:safeLabel', function() {
-
-        var cookie;
-
-        before(function(done) {
-            getCookie(function(c) {
-                cookie = c;
-                done();
             });
         });
 
-        it('should return an object', function(done) {
-            api.get(endpoint + '/news')
+        it('should return an array', function(done) {
+            api.get(endpoint + '/' + tag.uuid)
                 .set('Cookie', cookie)
                 .expect('Content-Type', 'application/json; charset=utf-8')
-                .expect(200)
                 .end(function(err, res) {
+                    expect(res.statusCode).to.be.equal(200);
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.not.have.property('err');
                     done();
@@ -148,91 +166,99 @@ describe('Content Type', function() {
         });
     });
 
+    /**
+     * Get all role
+     */
     describe('POST ' + endpoint, function() {
 
         var cookie;
-        var type;
+        var tag;
 
         before(function(done) {
             getCookie(function(c) {
                 cookie = c;
-                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b3", function(t) {
-                    type = t;
+                getTaxonomyTag(function(t) {
+                    tag = t;
                     done();
                 });
             });
         });
 
-        it('should return an object', function(done) {
-            delete type._id;
-            type.uuid = "ad03c1eb-13d2-4321-9ddb-8fab25f494b2";
+        it('should return an array', function(done) {
+            tag.uuid = '56a07caf-b166-4ff9-8b09-4ccb711f6e66';
+            delete tag._id;
+
             api.post(endpoint)
                 .set('Cookie', cookie)
-                .send(type)
-                .expect(200)
+                .send(tag)
+                .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res) {
+
+                    expect(res.statusCode).to.be.equal(201);
                     expect(res.body).to.be.an('object');
-                    expect(res.body).to.not.have.property('err');
-                    expect(res.body).to.have.property('meta');
-                    expect(res.body.meta).to.have.property('safeLabel');
-                    expect(res.body.meta).to.have.property('label');
-                    expect(res.body).to.have.property('fields');
-                    done();
-                });
-        });
-    });
-
-    describe('PUT ' + endpoint + '/:uuid', function() {
-
-        var cookie;
-        var type;
-
-        before(function(done) {
-            getCookie(function(c) {
-                cookie = c;
-                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b2", function(t) {
-                    type = t;
-                    done();
-                });
-            });
-        });
-
-        it('should return an object', function(done) {
-            type.meta.label = "newnews";
-            api.put(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b2')
-                .set('Cookie', cookie)
-                .send(type)
-                .expect(200)
-                .end(function(err, res) {
-                    expect(res.body).to.be.an('object');
-                    expect(res.body.meta.label).to.be.equal('Partner');
                     expect(res.body).to.not.have.property('err');
                     done();
                 });
         });
     });
 
-    describe('DELETE ' + endpoint + '/:uuid', function() {
+    /**
+     * Get all role
+     */
+    describe('PUT ' + endpoint + '/:id', function() {
 
         var cookie;
-        var type;
+        var tag;
 
         before(function(done) {
             getCookie(function(c) {
                 cookie = c;
-                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b2", function(t) {
-                    type = t;
+                getTaxonomyTagByUuid('56a07caf-b166-4ff9-8b09-4ccb711f6e66', function(t) {
+                    tag = t;
                     done();
                 });
             });
         });
 
-        it('should return an object', function(done) {
-            api.delete(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b2')
+        it('should return an array', function(done) {
+            tag.label = "Testtest";
+
+            api.put(endpoint + '/56a07caf-b166-4ff9-8b09-4ccb711f6e66')
                 .set('Cookie', cookie)
-                .send(type)
-                .expect(200)
+                .send(tag)
+                .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res) {
+                    expect(res.statusCode).to.be.equal(200);
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).to.not.have.property('err');
+                    expect(res.body.label).to.be.equal('Testtest');
+                    done();
+                });
+        });
+    });
+
+    /**
+     * Get all role
+     */
+    describe('DELETE ' + endpoint + '/:id', function() {
+
+        var cookie;
+        var tag;
+
+        before(function(done) {
+            getCookie(function(c) {
+                cookie = c;
+                done();
+            });
+        });
+
+        it('should return an array', function(done) {
+
+            api.delete(endpoint + '/' + '56a07caf-b166-4ff9-8b09-4ccb711f6e66')
+                .set('Cookie', cookie)
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .end(function(err, res) {
+                    expect(res.statusCode).to.be.equal(200);
                     expect(res.body).to.be.an('object');
                     expect(res.body).to.not.have.property('err');
                     done();
