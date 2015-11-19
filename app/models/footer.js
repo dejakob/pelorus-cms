@@ -49,27 +49,7 @@ var FooterSchema = new Schema({
     versions: []
 }, {strict: false});
 
-FooterSchema.set('toJSON');
-
-FooterSchema.set('toObject');
-
 // Set the name of the collection
 FooterSchema.set('collection', 'footer');
-
-if (!FooterSchema.options.toObject) {
-    FooterSchema.options.toObject = {};
-}
-
-FooterSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!FooterSchema.options.toJSON) {
-    FooterSchema.options.toJSON = {};
-}
-
-FooterSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
 
 module.exports = mongoose.model('Footer', FooterSchema);

@@ -75,29 +75,8 @@ var ContentSchema = new Schema({
     versions: []
 }, {strict: false});
 
-ContentSchema.set('toJSON');
-
-ContentSchema.set('toObject');
-
 // Set the name of the collection
 ContentSchema.set('collection', 'content');
-
-if (!ContentSchema.options.toObject) {
-    ContentSchema.options.toObject = {};
-}
-
-ContentSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!ContentSchema.options.toJSON) {
-    ContentSchema.options.toJSON = {};
-}
-
-ContentSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
 
 // ContentSchema hooks
 ContentSchema.pre('save', function(next) {
@@ -133,6 +112,5 @@ ContentSchema.pre('findOne', function(next) {
 
     next();
 });
-
 
 module.exports = mongoose.model('Content', ContentSchema);

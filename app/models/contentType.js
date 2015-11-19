@@ -121,29 +121,8 @@ var ContentTypeSchema = new Schema({
     versions: []
 });
 
-ContentTypeSchema.set('toJSON');
-
-ContentTypeSchema.set('toObject');
-
 // Set the name of the collection
 ContentTypeSchema.set('collection', 'contenttypes');
-
-if (!ContentTypeSchema.options.toObject) {
-    ContentTypeSchema.options.toObject = {};
-}
-
-ContentTypeSchema.options.toObject.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
-if (!ContentTypeSchema.options.toJSON) {
-    ContentTypeSchema.options.toJSON = {};
-}
-
-ContentTypeSchema.options.toJSON.transform = function (doc, ret) {
-    delete ret.__v;
-};
-
 
 // ContentTypeSchema hooks
 // Pre update
@@ -165,6 +144,5 @@ ContentTypeSchema.pre('update', function(next) {
     // Proceed and update
     next();
 });
-
 
 module.exports = mongoose.model('ContentType', ContentTypeSchema);
