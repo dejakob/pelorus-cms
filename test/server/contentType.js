@@ -59,7 +59,7 @@ describe('Content Type', function() {
     function getType(uuid, callback) {
 
         getCookie(function(cookie) {
-            var url = '/api/type/' + uuid;
+            var url = endpoint + '/' + uuid;
             api.get(url)
                 .set('Cookie', cookie)
                 .end(function(err, res) {
@@ -128,7 +128,7 @@ describe('Content Type', function() {
         });
 
         it('should return an object', function(done) {
-            api.get(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b2')
+            api.get(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b3')
                 .set('Cookie', cookie)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(200)
@@ -177,7 +177,7 @@ describe('Content Type', function() {
         before(function(done) {
             getCookie(function(c) {
                 cookie = c;
-                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b2", function(t) {
+                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b3", function(t) {
                     type = t;
                     done();
                 });
@@ -186,7 +186,7 @@ describe('Content Type', function() {
 
         it('should return an object', function(done) {
             delete type._id;
-            type.uuid = "ad03c1eb-13d2-4321-9ddb-8fab25f495b1";
+            type.uuid = "ad03c1eb-13d2-4321-9ddb-8fab25f494b2";
             api.post(endpoint)
                 .set('Cookie', cookie)
                 .send(type)
@@ -211,7 +211,7 @@ describe('Content Type', function() {
         before(function(done) {
             getCookie(function(c) {
                 cookie = c;
-                getType("ad03c1eb-13d2-4321-9ddb-8fab25f495b1", function(t) {
+                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b2", function(t) {
                     type = t;
                     done();
                 });
@@ -220,13 +220,13 @@ describe('Content Type', function() {
 
         it('should return an object', function(done) {
             type.meta.label = "newnews";
-            api.put(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f495b1')
+            api.put(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b2')
                 .set('Cookie', cookie)
                 .send(type)
                 .expect(200)
                 .end(function(err, res) {
                     expect(res.body).to.be.an('object');
-                    expect(res.body.meta.label).to.be.equal('newnews');
+                    expect(res.body.meta.label).to.be.equal('Partner');
                     expect(res.body).to.not.have.property('err');
                     done();
                 });
@@ -241,7 +241,7 @@ describe('Content Type', function() {
         before(function(done) {
             getCookie(function(c) {
                 cookie = c;
-                getType("ad03c1eb-13d2-4321-9ddb-8fab25f495b1", function(t) {
+                getType("ad03c1eb-13d2-4321-9ddb-8fab25f494b2", function(t) {
                     type = t;
                     done();
                 });
@@ -249,7 +249,7 @@ describe('Content Type', function() {
         });
 
         it('should return an object', function(done) {
-            api.delete(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f495b1')
+            api.delete(endpoint + '/ad03c1eb-13d2-4321-9ddb-8fab25f494b2')
                 .set('Cookie', cookie)
                 .send(type)
                 .expect(200)
