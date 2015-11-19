@@ -15,17 +15,6 @@ angular.module('district01.services.auth')
                 };
 
             /**
-             * Gets the current user
-             * @return {object} The current user object
-             */
-            API.getCurrentLoginUser = function getCurrentLoginUser() {
-                /*
-                    TODO: Since we're mostly using the singleton, we should consider removing this way of getting the user data.
-                */
-                return API.currentUser;
-            };
-
-            /**
              * Get the current user. Reference on singleton.
              * @type {object}
              */
@@ -46,7 +35,7 @@ angular.module('district01.services.auth')
                 userFactory.getProfile(function success (data) {
 
                     // Store user data in Authentication singleton
-                    currentUser = data;
+                    API.currentUser = data;
                     API.authenticated = true;
 
                     // Emit Authentication Event
@@ -72,7 +61,7 @@ angular.module('district01.services.auth')
             API.logOut = function logOut (callback) {
                 userFactory.logout(function success (data) {
 
-                    currentUser = {};
+                    API.currentUser = {};
                     API.authenticated = false;
 
                     $rootScope.$emit('Authentication.authenticationEnded');

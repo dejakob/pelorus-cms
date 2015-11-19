@@ -11,7 +11,7 @@ angular.module('pelorus.directives')
                 restrict: 'AE',
                 link: function($scope, $el, attr) {
 
-                    $scope.userData = Authentication.getCurrentLoginUser();
+                    $scope.Authentication = Authentication;
 
                     $scope.logout = function logout () {
                         Authentication.logOut(function () {
