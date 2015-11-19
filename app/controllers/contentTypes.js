@@ -121,7 +121,7 @@ exports.allTypes = function (req, res) {
  *     }
  */
 exports.readOne = function (req, res) {
-    typeModel.findOne({$or: [{uuid: req.params.id, 'meta.deleted': false}, {'meta.safeLabel': req.params.id}]}, {versions: 0})
+    typeModel.findOne({uuid: req.params.id, 'meta.deleted': false})
         .populate('meta.contentType')
         .exec(function(err, item) {
             if(!err && item) {

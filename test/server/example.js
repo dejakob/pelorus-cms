@@ -17,7 +17,7 @@ var config = require('config/config');
 
 // API setup
 var api = supertest('http://localhost:' + config.port),
-    endpoint = path.sep + config.api.prefix + config.api.version + 'example';
+    endpoint = config.api.prefix + config.api.version + 'example';
 
 describe('Example API tests', function() {
     function createExample(postData, callback) {
@@ -38,9 +38,9 @@ describe('Example API tests', function() {
                 };
             api.post(endpoint)
                 .send(postData)
+                .expect(201)
                 .expect('Content-Type', /json/)
                 .end(function validate(err, res) {
-                    expect(res.statusCode).to.equal(201);
                     expect(res.body.property).to.equal(postData.property);
                     done(err);
                 });
