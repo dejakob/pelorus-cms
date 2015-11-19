@@ -16,7 +16,7 @@
 
         <!-- Automatic injection of relevant css files using gulp task "inject" -->
         <!-- inject:css -->
-        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="stylesheet" href="/assets/css/styles.css">
         <!-- endinject -->
 
         <!-- Load favicon -->
@@ -58,15 +58,15 @@
         <!-- Automatic injection of relevant js files using gulp task "inject" -->
         <!-- inject:js -->
 
-        <script src="app/modules/auth/services/authentication.js"></script>
-
         <script src="app/app.module.js"></script>
 
         <script src="app/modules/auth/controllers/authentication-controller.js"></script>
 
-        <script src="app/core/navigation/navigationController.js"></script>
+        <script src="app/modules/auth/services/authentication.js"></script>
 
         <script src="app/core/header/headerController.js"></script>
+
+        <script src="app/core/navigation/navigationController.js"></script>
 
         <script src="app/components/home/homeController.js"></script>
 

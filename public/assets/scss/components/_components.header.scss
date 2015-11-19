@@ -1,9 +1,8 @@
 .header {
+
     height: 80px;
     width: calc(100% - 250px);
-    position: absolute;
-    left: 250px;
-    top: 0;
+    float: right;
 
     color: $blueDark;
     background: $white;

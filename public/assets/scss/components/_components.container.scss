@@ -6,16 +6,15 @@
 
 .content {
     display: block;
+    float: right;
 
     overflow-y: scroll;
     overflow-x: hidden;
-    height: calc(100vh - 80px);
+
     width: calc(100% - 250px);
-    position: absolute;
-    left: 250px;
 
     &.no-nav {
-        left: 0px;
+        float: none;
         width: 100%;
     }
 }

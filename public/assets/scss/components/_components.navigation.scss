@@ -1,11 +1,10 @@
 .navigation {
-    position: absolute;
-    left: 0;
-    top: 0;
+
     width: 250px;
     height: 100vh;
     overflow-y: scroll;
-    display: inline-block;
+
+    float: left;
 
     background: $gray;
     color: $white;

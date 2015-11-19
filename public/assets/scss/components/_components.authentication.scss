@@ -11,9 +11,13 @@
         .appContainer,
         .content,
         ui-view {
-            height: 100vh;
-            display: block;
+            /* height: 100vh;
+            display: block; */
         }
+    }
+
+    .appContainer {
+        @include clearfix;
     }
 }
 
