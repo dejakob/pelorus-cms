@@ -30,7 +30,13 @@
     "ng-notify": "~0.7.1",
     "angular-breadcrumb": "~0.4.1"
   },
-  "overrides": {},
+  "overrides": {
+        "font-awesome": {
+          "main": [
+                "css/font-awesome.css"
+            ]
+        }
+    },
   "devDependencies": {
     "susy": "~2.2.6"
   }
