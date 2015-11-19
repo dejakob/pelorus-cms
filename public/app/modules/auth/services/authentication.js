@@ -10,33 +10,35 @@ angular.module('district01.services.auth')
         function ($http, configuration, $window, $log, userFactory, $rootScope) {
             var API = {};
 
-            var _authenticated = false,
-                _userData = {}
-                oAuthProviders = {
+            var oAuthProviders = {
                     'twitter': '/auth/twitter'
                 };
 
-            /* GETTERS AND SETTERS */
-
-            /**
-             * Gets the authentication status
-             * @return {[boolean]} [Authenticated or not authenticated]
-             */
-            API.Authenticated = function getAuthenticated() {
-                return _authenticated;
-            };
-
             /**
              * Gets the current user
-             * @return {[object]} [The current user object]
+             * @return {object} The current user object
              */
             API.getCurrentLoginUser = function getCurrentLoginUser() {
-                return _userData;
+                /*
+                    TODO: Since we're mostly using the singleton, we should consider removing this way of getting the user data.
+                */
+                return API.currentUser;
             };
+
+            /**
+             * Get the current user. Reference on singleton.
+             * @type {object}
+             */
+            API.currentUser = {};
+
+            /**
+             * Get the authentication status. Reference on singleton.
+             * @type {boolean}
+             */
+            API.authenticated = false;
 
             /**
              * Get user based on session cookie. Stores user data in authentication singleton in call is successful, emits event if successful or unsuccessful
-             * @return {[type]} [description]
              */
             API.identify = function identify () {
                 $log.log('Identification in progress');
@@ -44,14 +46,14 @@ angular.module('district01.services.auth')
                 userFactory.getProfile(function success (data) {
 
                     // Store user data in Authentication singleton
-                    _userData = data.profile;
-                    _authenticated = true;
+                    currentUser = data;
+                    API.authenticated = true;
 
                     // Emit Authentication Event
                     $rootScope.$emit('Authentication.authenticated');
 
                 }, function error (data) {
-                    _authenticated = false;
+                    API.authenticated = false;
                     $rootScope.$emit('Authentication.authenticationFailed');
                 });
             };
@@ -61,6 +63,29 @@ angular.module('district01.services.auth')
              */
             API.goToOauth = function goToOauth() {
                 $window.open(configuration.serverPath+oAuthProviders[configuration.oAuth.provider], '_self');
+            };
+
+            /**
+             * Log out the user
+             * @param  {Function} callback Callback to execute when the logout is successful
+             */
+            API.logOut = function logOut (callback) {
+                userFactory.logout(function success (data) {
+
+                    currentUser = {};
+                    API.authenticated = false;
+
+                    $rootScope.$emit('Authentication.authenticationEnded');
+
+                    if (callback) {
+                        callback();
+                    };
+
+                }, function error (error) {
+                    /*
+                        TODO: catch this event
+                    */
+                });
             };
 
 

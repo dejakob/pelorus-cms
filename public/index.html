@@ -32,10 +32,10 @@
         <div class="body" >
 
             <div id="container" class="appContainer">
-                <navigation ng-if="authenticated"></navigation>
-                <header ng-if="authenticated"></header>
+                <navigation ng-if="Authentication.authenticated"></navigation>
+                <header ng-if="Authentication.authenticated"></header>
 
-                <div class="content" ng-class="{'no-nav': !authenticated}" ui-view="" ng-cloak>
+                <div class="content" ng-class="{'no-nav': !Authentication.authenticated}" ui-view="" ng-cloak>
                     <h1>This is Pelorus CMS</h1>
                     <p>If you see this message, something is awefully wrong.<br>Please verify that all .js-files load correctly and try again. <br>Still can't figure out what's wrong? Try getting help on <a href="http://stackoverflow.com/questions/tagged/pelorus">stackoverflow</a> or on our <a href="https://github.com/hvperdrive/pelorus-cms/issues">github</a>.</p>
                 </div>

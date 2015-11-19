@@ -16,7 +16,7 @@ angular.module('pelorus.services')
                 // Only test route if is configured to require authorisation
                 if (toState.access!== undefined) {
 
-                    if (!Authentication.Authenticated()) {
+                    if (!Authentication.authenticated) {
 
                         $rootScope.$on('Authentication.authenticated', function () {
 

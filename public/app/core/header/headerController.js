@@ -2,8 +2,9 @@ angular.module('pelorus.directives')
     .directive('header', [
 
         'Authentication',
+        '$state',
 
-        function(Authentication) {
+        function(Authentication, $state) {
             return {
                 templateUrl: 'app/core/header/header.html',
                 replace: true,
@@ -11,6 +12,12 @@ angular.module('pelorus.directives')
                 link: function($scope, $el, attr) {
 
                     $scope.userData = Authentication.getCurrentLoginUser();
+
+                    $scope.logout = function logout () {
+                        Authentication.logOut(function () {
+                            $state.go('authentication');
+                        });
+                    };
 
                 }
             };

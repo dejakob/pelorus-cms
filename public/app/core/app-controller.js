@@ -11,16 +11,7 @@ angular.module('pelorus.controllers')
              * Exposes the authentication status to the application scope
              * @type {boolean}
              */
-            $scope.authenticated = Authentication.Authenticated();
-
-            // Listen to authentication event
-            $rootScope.$on('Authentication.authenticated', function() {
-                $scope.authenticated = Authentication.Authenticated();
-            });
-
-            $rootScope.$on('Authentication.terminated', function() {
-                $scope.authenticated = Authentication.Authenticated();
-            });
+            $scope.Authentication = Authentication;
 
         }
     ]);

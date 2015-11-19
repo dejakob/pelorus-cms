@@ -64,7 +64,7 @@ angular.module('pelorus')
                     requiresLogin: true
                 },
                 controller: ['Authentication', '$log', '$rootScope', '$state', function(Authentication, $log, $rootScope, $state) {
-                    if (Authentication.Authenticated()) {
+                    if (Authentication.authenticated) {
                         $log.log('Authentication succeeded, should move on to home screen now');
                     } else {
 

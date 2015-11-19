@@ -19,7 +19,7 @@ angular.module('pelorus.controllers')
              * Actions that need to be done when the controller starts
              */
             var initialize = function initialize () {
-                if (Authentication.Authenticated()) {
+                if (Authentication.authenticated) {
 
                     // Already authenticated
                     $state.go('home');
