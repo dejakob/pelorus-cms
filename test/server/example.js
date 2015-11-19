@@ -39,8 +39,8 @@ describe('Example API tests', function() {
             api.post(endpoint)
                 .send(postData)
                 .expect('Content-Type', /json/)
-                .expect(201)
                 .end(function validate(err, res) {
+                    expect(res.statusCode).to.equal(201);
                     expect(res.body.property).to.equal(postData.property);
                     done(err);
                 });
