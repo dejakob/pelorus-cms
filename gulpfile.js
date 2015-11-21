@@ -1,31 +1,17 @@
 'use strict';
 
+require('./gulp/docs.js');
+require('./gulp/sass.js');
+require('./gulp/vendors.js');
+require('./gulp/scripts.js');
+
 var plugins = require('gulp-load-plugins')({
         camelize: true
     }),
     gulp = require('gulp'),
-    stylish = require('jshint-stylish'),
     runSequence = require('run-sequence'),
     wiredep = require('wiredep').stream,
     publicRoot = './public';
-
-// Linter for .js files
-gulp.task('lint', function() {
-    return gulp.src(['!./public/*', '*.js'])
-        .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter(stylish));
-});
-
-gulp.task('sass', function () {
-    gulp.src(publicRoot+'/assets/scss/**/*.scss')
-        .pipe(plugins.sourcemaps.init())
-        .pipe(plugins.sass({outputStyle: 'compressed'}))
-        .pipe(plugins.autoprefixer({
-            browsers: ['last 3 versions']
-        }))
-        .pipe(plugins.sourcemaps.write())
-        .pipe(gulp.dest(publicRoot+'/assets/css'));
-});
 
 // Start the node-server with nodemon
 gulp.task('nodemon', function() {
@@ -55,48 +41,11 @@ gulp.task('webserver', function() {
     );
 });
 
-// Create docs based on apidoc
-gulp.task('apidoc',function(done) {
-    plugins.apidoc({
-        src: 'app/',
-        dest: 'docs/',
-        includeFilters: [ '.*\\.js$' ]
-    }, done);
-});
-
-// Open docs in default browser
-gulp.task('openDocs',function() {
-    gulp.src('./docs/index.html')
-        .pipe(plugins.open());
-});
-
 gulp.task('server', function() {
     runSequence(
         'lint',
         'nodemon'
     );
-});
-
-// Bower integration
-gulp.task('wiredep', function () {
-    return gulp.src(publicRoot+'/index.html')
-        .pipe(wiredep({
-            directory: publicRoot+'/app/bower_components',
-            fileTypes: {
-                html: {
-                block: /(([ \t]*)<!--\s*bower:*(\S*)\s*-->)(\n|\r|.)*?(<!--\s*endbower\s*-->)/gi,
-                detect: {
-                    js: /<script.*src=['"]([^'"]+)/gi,
-                    css: /<link.*href=['"]([^'"]+)/gi
-                },
-                replace: {
-                    js: '<script src="{{filePath}}"></script>',
-                    css: '<link rel="stylesheet" href="/{{filePath}}" />'
-                }
-            },
-        }
-    }))
-    .pipe(gulp.dest(publicRoot));
 });
 
 // Script injection
@@ -113,44 +62,4 @@ gulp.task('injectCSS', function () {
     return target.pipe(plugins.inject(sources, {relative: true})).pipe(gulp.dest(publicRoot));
 });
 
-
-gulp.task('watch', function(){
-
-    // Watch styles
-    gulp.watch(publicRoot + '/assets/scss/**/*.scss', function(){
-        gulp.run('sass');
-    });
-
-    // Watch scripts
-    gulp.watch(publicRoot + '/app/**/*.js', function(){
-       gulp.run('lint');
-    });
-
-});
-
-gulp.task('watchNewFiles', function(){
-
-    // Watch new files, and inject them afterwards
-    plugins.watch(publicRoot + '/app/**/*.js', {read:false, events:['add', 'delete']},function(){
-        runSequence('injectJS', 'injectCSS');
-    });
-
-});
-
-gulp.task('frontend', function() {
-    runSequence(
-        'wiredep',
-        'injectJS',
-        'injectCSS',
-        'webserver',
-        'watch',
-        'watchNewFiles'
-    );
-});
-
-gulp.task('docs', function(cb) {
-    runSequence(
-        'apidoc',
-        'openDocs'
-    );
-});
+gulp.task('frontend', ['wiredep', 'scripts', 'sass', 'webserver', 'watch']);
