@@ -33,5 +33,5 @@ function wiredepTask ()
 
     return gulp.src(paths.frontend.mainHtml)
         .pipe(wiredep(WIREDEP_CONFIG))
-        .pipe(gulp.dest(paths.frontend.dist.js));
+        .pipe(gulp.dest(paths.frontend.root));
 }

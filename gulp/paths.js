@@ -2,6 +2,7 @@ const FRONT_END_DIR = './public/';
 
 const PATHS = {
     frontend: {
+        root: FRONT_END_DIR,
         js: [
             FRONT_END_DIR + 'app/modules/auth/services/authentication.js',
             FRONT_END_DIR + 'app/app.module.js',
