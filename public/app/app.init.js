@@ -6,7 +6,7 @@ angular.element(document).ready(function () {
     /*
         TODO: automate versions
     */
-    console.info('Welcome to Pelorus CMS (v0.0.1)');
+    console.info('Welcome to Pelorus CMS (v{APP_VERSION})');
     console.info('Loading configuration...');
 
     $.get('app/config/config.json', function (data) {
